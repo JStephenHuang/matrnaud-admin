@@ -4,5 +4,7 @@ export interface IPhoto {
   description: string;
   mainPhoto: string;
   popularity: number;
+  active: boolean;
+  price: number;
   photoshoot: { id: string; url: string }[];
 }

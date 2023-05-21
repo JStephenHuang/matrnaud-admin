@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom";
 import { usePhotos } from "../hooks/usePhotos";
-import { IoClose } from "react-icons/io5";
 import { IPhoto } from "../types/photo";
 import { motion } from "framer-motion";
 
 import Navbar from "../components/navbar";
+import Masonry from "@mui/lab/Masonry";
+import Footer from "../components/footer";
 
-const Photo = ({
-  photo,
-  deletePhoto,
-}: {
-  photo: IPhoto;
-  deletePhoto: (photoId: string) => void;
-}) => {
+const Photo = ({ photo }: { photo: IPhoto }) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -21,15 +16,9 @@ const Photo = ({
       transition={{ delay: photo.popularity }}
       id="gallery-items"
     >
-      {/* <button onClick={() => deletePhoto(photo.id)} className="absolute z-10">
-        <IoClose
-          className="m-2 rounded-full bg-yellow-300 text-white"
-          size={12}
-        />
-      </button> */}
       <Link to={`/photo/${photo.id}`}>
         <img
-          className="hover:opacity-70 transition-all w-full h-auto"
+          className="hover:opacity-90 transition-all w-full h-auto"
           src={photo.mainPhoto}
         />
       </Link>
@@ -38,11 +27,9 @@ const Photo = ({
 };
 
 const Gallery = () => {
-  const { photos, uploadPhoto, deletePhoto } = usePhotos();
+  const { photos } = usePhotos();
 
   if (photos === undefined) return <div>Loading</div>;
-
-  console.log(photos);
 
   return (
     <motion.div
@@ -50,28 +37,17 @@ const Gallery = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.3 } }}
       transition={{ delay: 0.2 }}
+      className="flex flex-col"
     >
-      <div id="gallery">
-        {photos.map((photo, key) => (
-          <Photo key={key} photo={photo} deletePhoto={deletePhoto} />
-        ))}
-        <label
-          className="aspect-square border text-gray-400 rounded-sm grid place-items-center"
-          htmlFor={`dropbox`}
-        >
-          Upload image
-          <input
-            id={`dropbox`}
-            type="file"
-            className="hidden"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              if (event.target.files) {
-                uploadPhoto(event.target.files[0]);
-              }
-            }}
-          />
-        </label>
+      <div className="pl-2">
+        <Masonry columns={{ xs: 2, sm: 4 }} spacing={1}>
+          {photos.map((photo, key) => (
+            <Photo key={key} photo={photo} />
+          ))}
+        </Masonry>
       </div>
+
+      <Footer />
     </motion.div>
   );
 };
@@ -79,7 +55,7 @@ const Gallery = () => {
 const MainPage = () => {
   return (
     <div className="h-screen">
-      <header className="h-[9.5%]">
+      <header className="h-[9%]">
         <Navbar />
       </header>
       <Gallery />

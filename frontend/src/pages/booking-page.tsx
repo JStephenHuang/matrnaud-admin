@@ -1,81 +1,77 @@
-import { m, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEmail } from "../hooks/useEmail";
-import { useRef } from "react";
 
 import Navbar from "../components/navbar";
 
 const BookingPage = () => {
-  const emailFromInputRef = useRef<HTMLInputElement>(null);
-  const nameInputRef = useRef<HTMLInputElement>(null);
-  const messageFromInputRef = useRef<HTMLTextAreaElement>(null);
-
-  const { sendEmail } = useEmail();
-
-  const onSumbit = () => {
-    if (
-      !emailFromInputRef.current ||
-      !nameInputRef.current ||
-      !messageFromInputRef.current
-    )
-      return console.log("something went wrong");
-
-    const emailFrom = emailFromInputRef.current.value;
-    const name = nameInputRef.current.value;
-    const message = messageFromInputRef.current.value;
-
-    if (emailFrom === "" || name === "" || message === "")
-      return console.log("form not filled");
-
-    sendEmail(emailFrom, name, message);
-  };
+  const { sendEmail, form, onChange, error } = useEmail();
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.3 } }}
-      transition={{ delay: 0.2 }}
-      className="h-screen"
-    >
+    <div className="h-screen">
       <header className="h-[9.5%]">
         <Navbar />
       </header>
 
-      <div className="w-full flex">
-        <div className="px-10 w-1/2 my-5 flex flex-col text-[20px] regular">
-          <p className="text-[40px] semibold">Book a photoshoot with me.</p>
-          <p className="mb-5 text-[16px]">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.3 } }}
+        transition={{ delay: 0.2 }}
+        className="w-full md:flex px-3"
+      >
+        <div className="px-10 md:w-1/2 my-5 flex flex-col regular">
+          <p className="md:text-[28px] text-[18px] semibold">
+            Book a photoshoot with me.
+          </p>
+          <p className="mb-5 text-[12px] md:text-[16px]">
             If you want me to take pictures and portraits for you. Enter you
             email, you name and the date of when you're planning to do it. Of
             course it's not guaranteed if I will be able to shoot at the date
-            you chose, but message me for more.
+            you chose.
           </p>
+          {error === "Form not filled" && (
+            <p className="text-center text-red-500">Form not filled</p>
+          )}
+
+          {error === "Email not sent." && (
+            <p className="text-center text-red-500">Email not sent</p>
+          )}
+          {error === "Email not valid." && (
+            <p className="text-center text-red-500">Email's format not valid</p>
+          )}
+          {error === "Email sent." && (
+            <p className="text-center text-green-500">Email sent</p>
+          )}
           <input
-            className="py-2 border-b-2 focus:border-black outline-none mb-5 transition-all"
+            className="py-2 border-b focus:border-black outline-none mb-5 transition-all"
             type="text"
+            value={form.email}
+            onChange={onChange.email}
             placeholder="Email"
-            ref={emailFromInputRef}
           />
           <input
-            className="py-2 border-b-2 focus:border-black outline-none mb-5 transition-all"
+            className="py-2 border-b focus:border-black outline-none mb-5 transition-all"
             type="text"
+            value={form.name}
+            onChange={onChange.name}
             placeholder="Name"
-            ref={nameInputRef}
           />
 
           <textarea
-            className="py-2 border-b-2 h-[10rem] focus:border-black outline-none resize-none mb-5 transition-all"
+            className="py-2 border-b h-[8rem] focus:border-black outline-none resize-none mb-5 transition-all"
+            value={form.message}
+            onChange={onChange.message}
             placeholder="Message..."
-            ref={messageFromInputRef}
           ></textarea>
+
           <button
-            onClick={onSumbit}
-            className="bg-black medium text-white px-5 py-2 hover:opacity-50"
+            onClick={sendEmail}
+            className="bg-black medium text-white px-5 py-2 hover:opacity-50 transition-all"
           >
             Submit
           </button>
         </div>
-        <div className="w-1/2">
+        <div className="px-10 md:px-0 md:w-1/2">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -86,8 +82,8 @@ const BookingPage = () => {
             alt=""
           />
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

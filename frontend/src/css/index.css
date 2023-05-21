@@ -46,19 +46,16 @@ body {
 
 #title {
   font-family: 'ClashDisplay-Bold';
-  @apply text-[48px]
+  @apply md:text-[48px] text-[32px]
 }
 
 #description {
   font-family: 'ClashDisplay-Light';
+  @apply md:text-[16px] text-center text-[12px]
 }
 
 #gallery {
-  @apply columns-2 gap-3 md:columns-4
-}
-
-#gallery-items {
-  @apply w-full h-auto float-left mb-3
+  @apply columns-2 gap-3 md:columns-4 px-3
 }
 
 #navbar { 

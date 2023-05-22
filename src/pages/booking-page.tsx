@@ -78,7 +78,7 @@ const BookingPage = () => {
             exit={{ opacity: 0, transition: { duration: 0.3 } }}
             transition={{ delay: 0.4 }}
             className="w-full h-auto"
-            src="http://monde.ccdmd.qc.ca/media/image1024/136372.jpg"
+            src="https://monde.ccdmd.qc.ca/media/image1024/136372.jpg"
             alt=""
           />
         </div>

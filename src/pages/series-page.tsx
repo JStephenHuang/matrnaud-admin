@@ -9,7 +9,7 @@ import { useCheckout } from "../hooks/useCheckout";
 
 const MainFrames = ({ url, rotate }: { url: string; rotate: string }) => {
   return (
-    <div className="w-1/3">
+    <div className="w-1/3 md:w-1/5">
       <img className={`shadow-md ${rotate} transition-all`} src={url} alt="" />
     </div>
   );
@@ -71,7 +71,7 @@ const SeriesPage = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-center overflow-y-auto pt-[6%]">
+    <div className="w-full h-screen flex flex-col items-center overflow-y-auto pt-[20%] sm:pt-[13%] lg:pt-[6%]">
       <Navbar />
       <motion.div
         variants={dropIn}
@@ -79,21 +79,23 @@ const SeriesPage = () => {
         animate="visible"
         className="flex flex-col items-center"
       >
-        <p className="text-[24px] bold leading-6">MATRNAUD'S SHOP</p>
+        <p className="md:text-[24px] bold leading-6">MATRNAUD'S SHOP</p>
         <div className="flex items-center my-3">
-          <hr className="w-40 border-black" />
-          <p className="mx-5 text-[14px]">LIMITED EDITION</p>
-          <hr className="w-40 border-black" />
+          <hr className="w-[3rem] md:w-[10rem] border-black" />
+          <p className="mx-2 md:mx-5 text-[10px] md:text-[14px]">
+            LIMITED EDITION
+          </p>
+          <hr className="w-[3rem] md:w-[10rem] border-black" />
         </div>
       </motion.div>
       <motion.div
         variants={dropIn}
         initial="hidden"
         animate="visible"
-        className="w-1/4 flex flex-col items-center py-1 px-[4%] border border-black"
+        className="flex flex-col items-center py-1 px-[4%] border border-black"
       >
-        <p className="bold text-[24px]">{series.title}</p>
-        <p className="">
+        <p className="bold md:text-[24px]">{series.title}</p>
+        <p className="text-[12px] md:text-[16px]">
           {series.startDate} - {series.endDate}
         </p>
       </motion.div>
@@ -104,7 +106,10 @@ const SeriesPage = () => {
         animate="visible"
         className="flex flex-col items-center mt-20"
       >
-        <a className="flex w-1/2 flex-wrap group" href="#frames">
+        <a
+          className="flex w-full flex-wrap group justify-center items-center"
+          href="#frames"
+        >
           <MainFrames
             url={frames[0].url}
             rotate={
@@ -128,7 +133,7 @@ const SeriesPage = () => {
         </a>
       </motion.div>
       <section id="frames" className="p-5 mt-20">
-        <div className="grid grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
           {frames.map((frame, key) => (
             <Frame key={key} frame={frame} checkout={checkout} />
           ))}

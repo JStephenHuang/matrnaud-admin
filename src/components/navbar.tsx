@@ -72,7 +72,7 @@ const Navbar = () => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed right-0 w-1/2 z-[50] h-screen border-l border-black bg-white"
+            className="fixed right-0 top-0 w-1/2 z-[50] h-screen border-l border-black bg-white"
           >
             <div className="flex items-center h-[8%] px-5">
               <IoClose

@@ -1,7 +1,6 @@
 import express from "express";
-import multer, { memoryStorage } from "multer";
 import serviceAccount from "./serviceAccount.json";
-import admin, { firestore } from "firebase-admin";
+import admin from "firebase-admin";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";

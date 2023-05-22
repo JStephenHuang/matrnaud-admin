@@ -1,0 +1,63 @@
+@import url('clash-display.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+
+/* 
+font-family: 'ClashDisplay-Variable';
+font-family: 'ClashDisplay-Extralight';
+font-family: 'ClashDisplay-Light';
+font-family: 'ClashDisplay-Regular';
+font-family: 'ClashDisplay-Medium';
+font-family: 'ClashDisplay-Semibold';
+font-family: 'ClashDisplay-Bold'; 
+*/
+
+*, html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'ClashDisplay-Medium';
+
+}
+
+@layer components {
+  .bold {
+    font-family: 'ClashDisplay-Bold'; 
+  }
+
+  .semibold {
+    font-family: 'ClashDisplay-Semibold';
+  }
+
+  .regular {
+    font-family: 'ClashDisplay-Regular';
+  }
+
+  .medium {
+    font-family: 'ClashDisplay-Medium';
+  }
+}
+
+
+#title {
+  font-family: 'ClashDisplay-Bold';
+  @apply md:text-[48px] text-[32px]
+}
+
+#description {
+  font-family: 'ClashDisplay-Light';
+  @apply md:text-[16px] text-center text-[12px]
+}
+
+#gallery {
+  @apply columns-2 gap-3 md:columns-4 px-3
+}
+
+#navbar { 
+  font-family: 'ClashDisplay-Medium';
+}

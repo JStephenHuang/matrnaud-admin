@@ -6,7 +6,6 @@ import express from "express";
 import { router as framesRouter } from "./routes/frames";
 import { router as photoRouter } from "./routes/photos";
 import { router as seriesRouter } from "./routes/series";
-import serviceAccount from "./serviceAccount.json";
 import sgMail from "@sendgrid/mail";
 import { router as stripeRouter } from "./stripe/stripe";
 
@@ -17,6 +16,19 @@ dotenv.config();
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const serviceAccount = {
+  type: process.env.TYPE,
+  projectId: process.env.PROJECT_ID,
+  privateKeyId: process.env.PRIVATE_KEY_ID,
+  privateKey: process.env.PRIVATE_KEY,
+  clientEmail: process.env.CLIENT_EMAIL,
+  clientId: process.env.CLIENT_ID,
+  authUri: process.env.AUTH_URI,
+  tokenUri: process.env.TOKEN_URI,
+  authProviderCertUrl: process.env.AUTH_PROVIDER_X509_CERT_URL,
+  clientCertUrl: process.env.CLIENT_X509_CERT_URL,
+};
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),

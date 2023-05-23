@@ -3,7 +3,7 @@ export interface ISeries {
   title: string;
   startDate: string;
   endDate: string;
-  photos: { id: string; url: string; price: string }[];
+  photos: string[];
   active: boolean;
 }
 

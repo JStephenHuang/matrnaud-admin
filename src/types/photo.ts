@@ -3,8 +3,8 @@ export interface IPhoto {
   title: string;
   description: string;
   mainPhoto: string;
-  popularity: number;
+  popularity: string;
   active: boolean;
-  price: number;
+  price: string;
   photoshoot: { id: string; url: string }[];
 }

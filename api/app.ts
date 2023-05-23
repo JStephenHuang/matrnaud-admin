@@ -71,3 +71,9 @@ app.post("/api/email", async (req, res) => {
     return res.status(200).send({ status: "Success", message: "Email sent." });
   }
 });
+
+if (!process.env.VERCEL) {
+  app.listen(9000, "0.0.0.0", () =>
+    console.log(`Server running on port ${9000}`)
+  );
+}

@@ -27,6 +27,6 @@
     "typescript": "^5.0.2"
   },
   "scripts": {
-    "dev": "nodemon dev.ts"
+    "dev": "nodemon app.ts"
   }
 }

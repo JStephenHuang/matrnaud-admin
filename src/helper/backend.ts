@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+const backendUrl = import.meta.env.VERCEL_URL;
 
 export const backend = axios.create({
   baseURL: backendUrl,

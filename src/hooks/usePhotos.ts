@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+
 import { IPhoto } from "../types/photo";
-import { sortByPop } from "../helper/sortByPop";
 import { backend } from "../helper/backend";
+import { sortByPop } from "../helper/sortByPop";
 
 export const usePhotos = () => {
   const [photos, setPhotos] = useState<IPhoto[]>([]);
   useEffect(() => {
     (async () => {
       const res = await backend
-        .get("/photos")
+        .get("/api/photos")
         .catch((error) => console.log(error));
 
       if (res) {

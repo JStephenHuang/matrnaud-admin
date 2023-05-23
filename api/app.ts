@@ -38,7 +38,7 @@ admin.initializeApp({
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-app.get("/health", (_req, res) => {
+app.get("/api/health", (_req, res) => {
   res.send("Server is alive");
 });
 

@@ -9,7 +9,7 @@ export const usePhotos = () => {
   useEffect(() => {
     (async () => {
       const res = await backend
-        .get("/api/photos")
+        .get("/photos")
         .catch((error) => console.log(error));
 
       if (res) {

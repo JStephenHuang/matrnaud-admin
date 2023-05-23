@@ -9,7 +9,7 @@ import { router as seriesRouter } from "./routes/series";
 import sgMail from "@sendgrid/mail";
 import { router as stripeRouter } from "./stripe/stripe";
 
-export const app = express();
+const app = express();
 
 dotenv.config();
 
@@ -60,3 +60,5 @@ app.post("/api/email", async (req, res) => {
     return res.status(200).send({ status: "Success", message: "Email sent." });
   }
 });
+
+export default app;

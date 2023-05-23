@@ -13,7 +13,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 });
 
-router.post("/checkout", async (req, res) => {
+router.post("/api/checkout", async (req, res) => {
   const bucket = storage().bucket();
 
   const item = req.body.item as Frame;

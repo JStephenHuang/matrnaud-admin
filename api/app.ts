@@ -1,18 +1,16 @@
-import express from "express";
-import serviceAccount from "./serviceAccount.json";
 import admin from "firebase-admin";
-import cors from "cors";
 import bodyParser from "body-parser";
+import cors from "cors";
 import dotenv from "dotenv";
-import sgMail from "@sendgrid/mail";
-import path from "path";
-
+import express from "express";
+import { router as framesRouter } from "./routes/frames";
 import { router as photoRouter } from "./routes/photos";
 import { router as seriesRouter } from "./routes/series";
-import { router as framesRouter } from "./routes/frames";
+import serviceAccount from "./serviceAccount.json";
+import sgMail from "@sendgrid/mail";
 import { router as stripeRouter } from "./stripe/stripe";
 
-const app = express();
+export const app = express();
 
 dotenv.config();
 
@@ -28,16 +26,18 @@ admin.initializeApp({
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
-app.use("/photos", photoRouter);
-app.use("/series", seriesRouter);
-app.use("/frames", framesRouter);
-app.use("/stripe", stripeRouter);
+app.get("/health", (_req, res) => {
+  res.send("Server is alive");
+});
 
-app.use("/", express.static(path.join(__dirname, "../frontend/dist")));
+app.use("/api/photos", photoRouter);
+app.use("/api/series", seriesRouter);
+app.use("/api/frames", framesRouter);
+app.use("/api/stripe", stripeRouter);
 
 // ! POST a email
 
-app.post("/email", async (req, res) => {
+app.post("/api/email", async (req, res) => {
   const form = req.body;
 
   const emailTemplate = {
@@ -59,7 +59,3 @@ app.post("/email", async (req, res) => {
     return res.status(200).send({ status: "Success", message: "Email sent." });
   }
 });
-
-app.listen(9000, "0.0.0.0", () =>
-  console.log(`Server Running on port ${9000}`)
-);

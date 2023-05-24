@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { IFrame, ISeries } from "../types/series";
+import React, { useEffect, useState } from "react";
+
 import { backend } from "../helper/backend";
+import { useNavigate } from "react-router-dom";
 
 export const useSeriesArray = () => {
   const navigate = useNavigate();
@@ -91,6 +92,13 @@ export const useSeries = (seriesId: string) => {
     setSeries({ ...series, title: event.target.value });
   };
 
+  const onDescriptionChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    if (series === undefined) return;
+    setSeries({ ...series, description: event.target.value });
+  };
+
   const startDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (series === undefined) return;
     setSeries({ ...series, startDate: event.target.value });
@@ -108,6 +116,7 @@ export const useSeries = (seriesId: string) => {
 
   const onChange = {
     title: onTitleChange,
+    description: onDescriptionChange,
     startDate: startDateChange,
     endDate: endDateChange,
     active: onActiveChange,

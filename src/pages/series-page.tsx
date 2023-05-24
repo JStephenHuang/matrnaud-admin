@@ -1,7 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { useSeries } from "../hooks/useSeries";
+
 import { IoCheckmark } from "react-icons/io5";
 import { Masonry } from "@mui/lab";
+import { useSeries } from "../hooks/useSeries";
 
 const SeriesPage = () => {
   const params = useParams();
@@ -23,7 +24,7 @@ const SeriesPage = () => {
       </div>
 
       <div className="flex flex-col items-center mt-10">
-        <div className=" w-fit flex flex-col items-center py-2 px-[4%] border border-black">
+        <div className="w-fit flex flex-col items-center py-2 px-[4%] border border-black">
           <input
             className="font-bold text-center text-[28px] outline-none my-2"
             type="text"
@@ -49,6 +50,13 @@ const SeriesPage = () => {
             />
           </div>
         </div>
+        <textarea
+          className="resize-none outline-none w-1/3 h-[6rem] my-2"
+          placeholder="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem expedita sed corrupti aliquid odit eos totam! Ab officia rem suscipit, nobis quaerat rerum nemo natus excepturi in neque placeat illo."
+          value={series.description}
+          onChange={onChange.description}
+        ></textarea>
+
         <input
           type="checkbox"
           id="checkbox-active"
@@ -77,6 +85,7 @@ const SeriesPage = () => {
           {frames.map((frame, key) => (
             <div key={key}>
               <img src={frame.url} alt="" />
+              <span className="font-bold">{frame.title}</span>, {frame.price}$
               <div className="flex items-center my-2">
                 <Link
                   className="rounded-md py-2 px-4 bg-black text-white mr-2"

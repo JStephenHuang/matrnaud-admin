@@ -1,6 +1,6 @@
-import { useSeriesArray } from "../hooks/useSeries";
 import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
+import { useSeriesArray } from "../hooks/useSeries";
 
 const SeriesArrayPage = () => {
   const { seriesArray, createSeries, deleteSeries } = useSeriesArray();
@@ -30,18 +30,18 @@ const SeriesArrayPage = () => {
             </div>
             <div>id: {series.id}</div>
             <div className="flex justify-between">
-              <button
-                className="py-2 px-4 rounded-md bg-red-500 text-white"
-                onClick={() => deleteSeries(series.id)}
-              >
-                delete
-              </button>
               <Link
                 to={`/series/${series.id}`}
                 className="py-2 px-4 rounded-md bg-black text-white"
               >
                 edit
               </Link>
+              <button
+                className="py-2 px-4 rounded-md bg-red-500 text-white"
+                onClick={() => deleteSeries(series.id)}
+              >
+                delete
+              </button>
             </div>
           </div>
         ))}

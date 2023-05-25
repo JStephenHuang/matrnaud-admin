@@ -1,14 +1,14 @@
-import { Link, useParams } from "react-router-dom";
-import { usePhoto } from "../hooks/usePhotos";
 import {
+  IoAdd,
   IoCaretBack,
   IoCaretForward,
-  IoClose,
-  IoAdd,
   IoCheckmark,
+  IoClose,
 } from "react-icons/io5";
+import { Link, useParams } from "react-router-dom";
 
 import Masonry from "@mui/lab/Masonry";
+import { usePhoto } from "../hooks/usePhotos";
 
 const PhotoPage = () => {
   const params = useParams();
@@ -75,7 +75,7 @@ const PhotoPage = () => {
         </div>
       </div>
       <div id="photoshoot" className="px-8">
-        <Masonry columns={2} spacing={1}>
+        <Masonry columns={3} spacing={1}>
           {photo.photoshoot.map((photo, key) => (
             <div id="gallery-photo" key={key}>
               <button

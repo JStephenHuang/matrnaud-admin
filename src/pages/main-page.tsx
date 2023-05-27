@@ -1,9 +1,12 @@
-import { Link, NavLink } from "react-router-dom";
+import Cookies from "js-cookie";
 import { IPhoto } from "../types/photo";
-import { usePhotos } from "../hooks/usePhotos";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import Masonry from "@mui/lab/Masonry";
 import Navbar from "../components/navbar";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { usePhotos } from "../hooks/usePhotos";
 
 const Photo = ({
   photo,
@@ -29,6 +32,13 @@ const Photo = ({
 
 const MainPage = () => {
   const { photos, uploadPhoto, deletePhoto } = usePhotos();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Cookies.get("auth") !== "true") {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div>

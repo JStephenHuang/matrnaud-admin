@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { IPhoto } from "../types/photo";
 import { backend } from "../helper/backend";
 
@@ -13,7 +14,9 @@ export const usePhotos = () => {
     form.append("photo", file);
     const res = await backend
       .post(`/photos`, form, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .catch((error) => console.log(error));
 

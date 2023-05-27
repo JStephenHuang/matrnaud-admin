@@ -1,17 +1,21 @@
-import {
-  IoAdd,
-  IoCaretBack,
-  IoCaretForward,
-  IoCheckmark,
-  IoClose,
-} from "react-icons/io5";
-import { Link, useParams } from "react-router-dom";
+import { IoAdd, IoCaretBack, IoCaretForward, IoClose } from "react-icons/io5";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
+import Cookies from "js-cookie";
 import Masonry from "@mui/lab/Masonry";
+import { useEffect } from "react";
 import { usePhoto } from "../hooks/usePhotos";
 
 const PhotoPage = () => {
   const params = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Cookies.get("auth") !== "true") {
+      navigate("/login");
+    }
+  }, []);
 
   if (params.photoId === undefined) return <div>Something went wrong!</div>;
 

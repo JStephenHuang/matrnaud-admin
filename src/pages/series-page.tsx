@@ -1,11 +1,21 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
+import Cookies from "js-cookie";
 import { IoCheckmark } from "react-icons/io5";
 import { Masonry } from "@mui/lab";
+import { useEffect } from "react";
 import { useSeries } from "../hooks/useSeries";
 
 const SeriesPage = () => {
   const params = useParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Cookies.get("auth") !== "true") {
+      navigate("/login");
+    }
+  }, []);
 
   const seriesId = params.seriesId;
 

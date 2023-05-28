@@ -1,18 +1,23 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Cookies from "js-cookie";
+import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { useFrame } from "../hooks/useSeries";
 
 const FramePage = () => {
   const params = useParams();
+  const { isAuthenticated } = useAuth();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (Cookies.get("auth") !== "true") {
-      navigate("/login");
-    }
+    (async () => {
+      const authState = await isAuthenticated();
+      if (!authState) {
+        navigate("/login");
+      }
+    })();
   }, []);
 
   const frameId = params.frameId;

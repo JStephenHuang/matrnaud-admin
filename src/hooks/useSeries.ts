@@ -1,11 +1,12 @@
 import { IFrame, ISeries } from "../types/series";
 import React, { useEffect, useState } from "react";
 
-import { backend } from "../helper/backend";
+import { useBackend } from "./useBackend";
 import { useNavigate } from "react-router-dom";
 
 export const useSeriesArray = () => {
   const navigate = useNavigate();
+  const backend = useBackend();
 
   const [seriesArray, setSeriesArray] = useState<ISeries[]>([]);
 
@@ -41,6 +42,8 @@ export const useSeriesArray = () => {
 export const useSeries = (seriesId: string) => {
   const [series, setSeries] = useState<ISeries>();
   const [frames, setFrames] = useState<IFrame[]>([]);
+
+  const backend = useBackend();
 
   const uploadFrame = async (file: File) => {
     const form = new FormData();
@@ -127,6 +130,8 @@ export const useSeries = (seriesId: string) => {
 
 export const useFrame = (frameId: string) => {
   const [frame, setFrame] = useState<IFrame>();
+
+  const backend = useBackend();
 
   const updateFrame = async () => {
     const res = await backend

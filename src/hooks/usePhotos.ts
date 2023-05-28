@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { IPhoto } from "../types/photo";
-import { backend } from "../helper/backend";
+import { useBackend } from "./useBackend";
 
 export const usePhotos = () => {
   const [photos, setPhotos] = useState<IPhoto[]>([]);
+
+  const backend = useBackend();
 
   const sortByPop = (a: IPhoto, b: IPhoto) =>
     Number(a.popularity) - Number(b.popularity);
@@ -48,6 +50,8 @@ export const usePhotos = () => {
 
 export const usePhoto = (photoId: string) => {
   const [photo, setPhoto] = useState<IPhoto>();
+
+  const backend = useBackend();
 
   const uploadPhoto = async (files: FileList) => {
     const form = new FormData();

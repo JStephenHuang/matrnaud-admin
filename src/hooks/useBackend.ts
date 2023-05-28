@@ -7,9 +7,15 @@ export const useBackend = () => {
   (config.baseURL = `${import.meta.env.VITE_BACKEND}/api`),
     (config.withCredentials = true);
 
-  if (Cookies.get("auth") === "true") {
+  if (
+    Cookies.get("username") !== undefined &&
+    Cookies.get("password") !== undefined
+  ) {
+    const encodedCredentials = btoa(
+      `${Cookies.get("username")}:${Cookies.get("password")}`
+    );
     config.headers = {
-      Authorization: `Basic ${import.meta.env.VITE_CREDENTIALS}`,
+      Authorization: `Basic ${encodedCredentials}`,
     };
   }
 

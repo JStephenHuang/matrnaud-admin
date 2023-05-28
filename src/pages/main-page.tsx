@@ -4,6 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import Masonry from "@mui/lab/Masonry";
 import Navbar from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePhotos } from "../hooks/usePhotos";
@@ -34,11 +35,16 @@ const MainPage = () => {
   const { photos, uploadPhoto, deletePhoto } = usePhotos();
   const navigate = useNavigate();
 
+  const { isAuthenticated } = useAuth();
+
   useEffect(() => {
-    if (Cookies.get("auth") !== "true") {
-      navigate("/login");
-    }
-  }, []);
+    (async () => {
+      const authState = await isAuthenticated();
+      if (!authState) {
+        navigate("/login");
+      }
+    })();
+  }, [document.cookie]);
 
   return (
     <div>

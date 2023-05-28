@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import Masonry from "@mui/lab/Masonry";
+import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { usePhoto } from "../hooks/usePhotos";
 
@@ -10,12 +11,16 @@ const PhotoPage = () => {
   const params = useParams();
 
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (Cookies.get("auth") !== "true") {
-      navigate("/login");
-    }
-  }, []);
+    (async () => {
+      const authState = await isAuthenticated();
+      if (!authState) {
+        navigate("/login");
+      }
+    })();
+  }, [document.cookie]);
 
   if (params.photoId === undefined) return <div>Something went wrong!</div>;
 

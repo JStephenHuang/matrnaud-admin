@@ -6,13 +6,16 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const { login, username, password, onChange } = useAuth();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (Cookies.get("auth") === "true") {
-      navigate("/");
-    }
+    (async () => {
+      const authState = await isAuthenticated();
+      if (authState) {
+        navigate("/");
+      }
+    })();
   }, [document.cookie]);
-
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <input

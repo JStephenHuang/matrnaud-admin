@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
 import Navbar from "../components/navbar";
+import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { useSeriesArray } from "../hooks/useSeries";
 
@@ -9,12 +10,16 @@ const SeriesArrayPage = () => {
   const { seriesArray, createSeries, deleteSeries } = useSeriesArray();
 
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (Cookies.get("auth") !== "true") {
-      navigate("/login");
-    }
-  }, []);
+    (async () => {
+      const authState = await isAuthenticated();
+      if (!authState) {
+        navigate("/login");
+      }
+    })();
+  }, [document.cookie]);
 
   return (
     <div>

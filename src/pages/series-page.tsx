@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import { IoCheckmark } from "react-icons/io5";
 import { Masonry } from "@mui/lab";
+import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import { useSeries } from "../hooks/useSeries";
 
@@ -11,11 +12,16 @@ const SeriesPage = () => {
 
   const navigate = useNavigate();
 
+  const { isAuthenticated } = useAuth();
+
   useEffect(() => {
-    if (Cookies.get("auth") !== "true") {
-      navigate("/login");
-    }
-  }, []);
+    (async () => {
+      const authState = await isAuthenticated();
+      if (!authState) {
+        navigate("/login");
+      }
+    })();
+  }, [document.cookie]);
 
   const seriesId = params.seriesId;
 

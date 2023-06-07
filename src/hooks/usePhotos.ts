@@ -84,6 +84,20 @@ export const usePhoto = (photoId: string) => {
     if (res) setPhoto(res.data);
   };
 
+  const updateMainPhoto = async (file: File) => {
+    const form = new FormData();
+    form.append("photo", file);
+    const res = await backend
+      .put(`/photos/main/${photoId}`, form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .catch((error) => console.log(error));
+
+    if (res) setPhoto(res.data);
+  };
+
   useEffect(() => {
     (async () => {
       const res = await backend
@@ -110,22 +124,10 @@ export const usePhoto = (photoId: string) => {
     setPhoto({ ...photo, popularity: event.target.value });
   };
 
-  const onPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (photo === undefined) return;
-    setPhoto({ ...photo, price: event.target.value });
-  };
-
-  const onActiveChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (photo === undefined) return;
-    setPhoto({ ...photo, active: event.target.checked });
-  };
-
   const onChange = {
     title: onTitleChange,
     description: onDescriptionChange,
     popularity: onPopularityChange,
-    price: onPriceChange,
-    active: onActiveChange,
   };
 
   return {
@@ -133,6 +135,7 @@ export const usePhoto = (photoId: string) => {
     uploadPhoto,
     deletePhoto,
     updatePhoto,
+    updateMainPhoto,
     onChange,
   };
 };

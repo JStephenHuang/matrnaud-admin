@@ -7,8 +7,8 @@ const Navbar = () => {
         to="/"
         className={({ isActive }) =>
           isActive
-            ? "px-3 py-2 border border-black bg-black rounded-md text-white mr-3"
-            : "px-3 py-2 border border-black rounded-md text-black mr-3"
+            ? "px-3 py-2 border border-black bg-black rounded-md text-white"
+            : "px-3 py-2 border border-black rounded-md text-black"
         }
       >
         Gallery
@@ -17,11 +17,21 @@ const Navbar = () => {
         to="/series"
         className={({ isActive }) =>
           isActive
+            ? "px-3 py-2 border border-black bg-black rounded-md text-white mx-3"
+            : "px-3 py-2 border border-black rounded-md text-black mx-3"
+        }
+      >
+        Shop
+      </NavLink>
+      <NavLink
+        to="/info"
+        className={({ isActive }) =>
+          isActive
             ? "px-3 py-2 border border-black bg-black rounded-md text-white"
             : "px-3 py-2 border border-black rounded-md text-black"
         }
       >
-        Shop
+        Info
       </NavLink>
     </div>
   );

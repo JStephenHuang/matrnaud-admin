@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import Cookies from "js-cookie";
 import { IoCheckmark } from "react-icons/io5";
 import { Masonry } from "@mui/lab";
 import { useAuth } from "../hooks/useAuth";

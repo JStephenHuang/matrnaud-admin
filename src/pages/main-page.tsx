@@ -1,7 +1,8 @@
+import { Link, ScrollRestoration, useLoaderData } from "react-router-dom";
+
 import Cookies from "js-cookie";
 import { IPhoto } from "../types/photo";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import Masonry from "@mui/lab/Masonry";
 import Navbar from "../components/navbar";
 import { useAuth } from "../hooks/useAuth";
@@ -16,12 +17,26 @@ const Photo = ({
   photo: IPhoto;
   deletePhoto: (photoId: string) => void;
 }) => {
+  useEffect(() => {
+    (async () => {
+      await new Promise((f) => setTimeout(f, 100));
+      const scrollPosition = sessionStorage.getItem("scrollPosition");
+      if (scrollPosition) {
+        window.scrollTo(0, parseInt(scrollPosition));
+        sessionStorage.removeItem("scrollPosition");
+      }
+    })();
+  }, []);
+  const handleClick = () => {
+    sessionStorage.setItem("scrollPosition", window.scrollY.toString());
+  };
+
   return (
     <div>
       <button onClick={() => deletePhoto(photo.id)} className="absolute z-10">
         <IoClose className="m-2 rounded-full bg-red-500 text-white" size={20} />
       </button>
-      <Link to={`/photo/${photo.id}`}>
+      <Link to={`/photo/${photo.id}`} onClick={handleClick}>
         <img
           className="hover:opacity-70 transition-all w-full h-auto"
           src={photo.mainPhoto}

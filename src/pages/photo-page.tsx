@@ -1,7 +1,6 @@
 import { IoAdd, IoCaretBack, IoCaretForward, IoClose } from "react-icons/io5";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import Cookies from "js-cookie";
 import Masonry from "@mui/lab/Masonry";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
@@ -24,9 +23,14 @@ const PhotoPage = () => {
 
   if (params.photoId === undefined) return <div>Something went wrong!</div>;
 
-  const { photo, uploadPhoto, deletePhoto, updatePhoto, onChange } = usePhoto(
-    params.photoId
-  );
+  const {
+    photo,
+    uploadPhoto,
+    deletePhoto,
+    updatePhoto,
+    updateMainPhoto,
+    onChange,
+  } = usePhoto(params.photoId);
 
   if (photo === undefined) return <div>Photo does not exist</div>;
 
@@ -66,7 +70,6 @@ const PhotoPage = () => {
               onChange={onChange.popularity}
             />
           </div>
-
           <a
             href="#photoshoot"
             className="flex items-center font-semibold my-5 group"
@@ -74,13 +77,24 @@ const PhotoPage = () => {
             <p className="transition-all">VIEW PHOTOSHOOT</p>
             <IoCaretForward className="scale-0 group-hover:scale-100 transition-all" />
           </a>
-
           <button
             className="py-2 border border-black hover:text-white hover:bg-black transition-all w-1/3"
             onClick={updatePhoto}
           >
             Save changes
           </button>
+          <p className="font-semibold mt-10">
+            Si tu veux change la photo principale (pas besoin de save changes
+            pour celle la):
+          </p>
+          <input
+            type="file"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              if (event.target.files) {
+                updateMainPhoto(event.target.files[0]);
+              }
+            }}
+          />
         </div>
       </div>
       <div id="photoshoot" className="px-8">
